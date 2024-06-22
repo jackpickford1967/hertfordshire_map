@@ -17,7 +17,7 @@
         @media (max-width: 768px) {
             #map {
                 width: 100%;
-                height: 300px;
+                height: 350px;
             }
         }
 
@@ -25,7 +25,7 @@
         @media (max-width: 480px) {
             #map {
                 width: 100%;
-                height: 200px;
+                height: 350px;
             }
         }
     </style>
@@ -41,10 +41,12 @@
             id: 'mapbox/streets-v11'
         }).addTo(map);
 
-        fetch('hertfordshire.geojson')
+        fetch('https://raw.githubusercontent.com/jackpickford1967/hertfordshire_map/main/hertfordshire.geojson')
             .then(response => response.json())
             .then(data => {
-                L.geoJSON(data).addTo(map);
+                var geojsonLayer = L.geoJSON(data);
+                geojsonLayer.addTo(map);
+                map.fitBounds(geojsonLayer.getBounds());
             });
     </script>
 </body>
